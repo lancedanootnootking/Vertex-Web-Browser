@@ -1,5 +1,6 @@
 # GUI Framework
-customtkinter>=5.2.0
+PyQt6>=6.6.0
+PyQt6-WebEngine>=6.6.0
 
 # Backend Services
 flask>=2.3.0
@@ -8,7 +9,6 @@ flask-sqlalchemy>=3.0.0
 # sqlite3 is built-in with Python
 
 # Web Rendering
-cefpython3>=66.0
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
 
@@ -36,3 +36,6 @@ pytest>=7.4.0
 pytest-cov>=4.1.0
 black>=23.7.0
 flake8>=6.0.0
+
+# Packaging
+pyinstaller>=5.13.0

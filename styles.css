@@ -1,0 +1,226 @@
+/* Simple Ad Blocker - Content Script Styles */
+
+/* Hide blocked elements immediately */
+[data-ad-blocked="true"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+}
+
+/* Common ad containers to hide */
+.google-auto-placed,
+.google-ads,
+.adsbygoogle,
+.adslot,
+.adBanner,
+.adContainer,
+.advertisement,
+.sponsored,
+.sponsored-content,
+.promo,
+.promotion {
+    display: none !important;
+}
+
+/* Iframe ads */
+iframe[src*="ads"],
+iframe[src*="doubleclick"],
+iframe[src*="googlesyndication"],
+iframe[src*="googleads"],
+iframe[src*="adnxs"],
+iframe[src*="amazon-adsystem"] {
+    display: none !important;
+}
+
+/* Prevent layout shifts when ads are removed */
+:root {
+    --ad-blocked-transition: all 0.3s ease;
+}
+
+/* Smooth transitions for ad removal */
+[data-ad-blocked="true"] {
+    transition: var(--ad-blocked-transition);
+}
+
+/* Placeholder for blocked ads (optional) */
+.ad-blocked-placeholder {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 8px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #6c757d;
+    display: none; /* Hidden by default, can be enabled in options */
+}
+
+.ad-blocked-placeholder::before {
+    content: "Ad blocked by Simple Ad Blocker";
+}
+
+/* Responsive hiding */
+@media (max-width: 768px) {
+    /* Hide mobile-specific ads */
+    .mobile-ad,
+    .ad-mobile,
+    .banner-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    /* Hide desktop-specific ads */
+    .desktop-ad,
+    .ad-desktop,
+    .banner-desktop {
+        display: none !important;
+    }
+}
+
+/* Video ads */
+video[src*="ad"],
+video[src*="advertisement"],
+.video-ad,
+.video-advertisement {
+    display: none !important;
+}
+
+/* Image ads */
+img[src*="ad"],
+img[src*="advertisement"],
+img[src*="banner"],
+img[src*="promo"],
+img[alt*="ad"],
+img[alt*="advertisement"],
+img[alt*="sponsored"] {
+    display: none !important;
+}
+
+/* Link ads */
+a[href*="ad"],
+a[href*="advertisement"],
+a[href*="promo"],
+a[href*="sponsored"],
+.ad-link,
+.promo-link {
+    display: none !important;
+}
+
+/* Script-generated ads */
+script[src*="ad"],
+script[src*="advertisement"],
+script[src*="doubleclick"],
+script[src*="googlesyndication"] {
+    display: none !important;
+}
+
+/* Overlay ads */
+.ad-overlay,
+.overlay-ad,
+.modal-ad,
+.popup-ad {
+    display: none !important;
+    position: absolute !important;
+    z-index: -9999 !important;
+}
+
+/* Sidebar ads */
+.sidebar-ad,
+.side-ad,
+.right-ad,
+.left-ad {
+    display: none !important;
+}
+
+/* Footer ads */
+.footer-ad,
+.bottom-ad {
+    display: none !important;
+}
+
+/* Header ads */
+.header-ad,
+.top-ad {
+    display: none !important;
+}
+
+/* In-content ads */
+.content-ad,
+.in-article-ad,
+.between-content-ad {
+    display: none !important;
+}
+
+/* Floating ads */
+.floating-ad,
+.sticky-ad,
+.fixed-ad {
+    display: none !important;
+    position: fixed !important;
+    top: -9999px !important;
+    left: -9999px !important;
+}
+
+/* Prevent empty spaces where ads were */
+.ad-space:empty,
+.ad-container:empty,
+.ad-wrapper:empty {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+}
+
+/* Anti-adblock detection prevention */
+.adblock-test,
+.adblock-detected,
+.adblock-message {
+    display: none !important;
+}
+
+/* Hide anti-adblock warnings */
+.adblock-warning,
+.adblock-notice,
+.disable-adblock-message {
+    display: none !important;
+}
+
+/* Custom styles for specific sites */
+/* Example: YouTube */
+.ytp-ad-module,
+.ytp-ad-overlay-container,
+.ytp-ad-text,
+.ytp-ad-preview-container,
+.video-ads {
+    display: none !important;
+}
+
+/* Example: Facebook */
+[data-visualcompletion="ignore-dynamic"],
+[data-pagelet*="ad"],
+.sponsored_story,
+.ego_section {
+    display: none !important;
+}
+
+/* Example: Twitter */
+.promoted-tweet,
+.promoted-trend,
+.ad-container,
+.promoted-account {
+    display: none !important;
+}
+
+/* Example: Reddit */
+.promotedlink,
+.ad-container,
+.sponsored-link {
+    display: none !important;
+}

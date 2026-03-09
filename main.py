@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.12
 """
 Advanced Web Browser - Main Entry Point
 
-This is the main entry point for the Advanced Web Browser application.
-It starts the working search browser with full functionality.
+Launches the advanced browser with tabs, navigation, and full features.
 """
 
 import sys
@@ -15,26 +14,35 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 def main():
-    """Main entry point for the browser application."""
-    print("🚀 Starting Advanced Web Browser...")
+    """Main entry point."""
+    print("Starting Vertex...")
     
-    # Check Python version
-    if sys.version_info < (3, 8):
-        print("❌ Python 3.8 or higher is required")
-        sys.exit(1)
+    # Set Qt attribute before creating QApplication
+    from PyQt6.QtCore import Qt
+    Qt.AA_ShareOpenGLContexts = True
     
-    # Run the working browser by executing it as a script
+    # Import QtWebEngineWidgets before QApplication
+    import PyQt6.QtWebEngineWidgets
+    
+    # Create QApplication with required attributes for QtWebEngine
+    from PyQt6.QtWidgets import QApplication
+    
+    app = QApplication(sys.argv)
+    
+    # Import and run the browser
+    from browser import AdvancedBrowser
+    
     try:
-        import subprocess
-        result = subprocess.run([sys.executable, "browser.py"], cwd=project_root)
-        if result.returncode != 0:
-            print("❌ Browser exited with error")
-            sys.exit(1)
-    except FileNotFoundError:
-        print("❌ Browser not found")
-        sys.exit(1)
+        # Create and show browser
+        browser = AdvancedBrowser()
+        browser.show()
+        
+        print("Vertex ready!")
+        return app.exec()
+    except KeyboardInterrupt:
+        print("\nShutting down browser...")
     except Exception as e:
-        print(f"❌ Error starting browser: {e}")
+        print(f"Browser error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

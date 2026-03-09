@@ -48,7 +48,7 @@ class AddressBar:
         self.url_entry.pack(side="left", fill="x", expand=True)
         
         # Security indicator
-        self.security_indicator = ctk.CTkLabel(self.frame, text="🔒", width=20)
+        self.security_indicator = ctk.CTkLabel(self.frame, text="Secure", width=20)
         self.security_indicator.pack(side="right", padx=5)
         
         # Autocomplete listbox (initially hidden)
@@ -311,7 +311,7 @@ class AddressBar:
                 suggestions.append({
                     'text': search_text,
                     'url': f"https://www.google.com/search?q={query}",
-                    'display_text': f"🔍 {search_text}",
+                    'display_text': f"Search {search_text}",
                     'type': 'search',
                     'query': query
                 })
@@ -329,7 +329,7 @@ class AddressBar:
             suggestions.append({
                 'text': f"Search for '{query}'",
                 'url': f"https://www.google.com/search?q={query}",
-                'display_text': f"🔍 Search for '{query}'",
+                'display_text': f"Search for '{query}'",
                 'type': 'search',
                 'query': query
             })
@@ -377,20 +377,20 @@ class AddressBar:
             parsed_url = urlparse(url)
             
             if parsed_url.scheme == 'https':
-                self.security_indicator.configure(text="🔒")
+                self.security_indicator.configure(text="Secure")
                 self.security_indicator.configure(text_color="green")
             elif parsed_url.scheme == 'http':
-                self.security_indicator.configure(text="⚠️")
+                self.security_indicator.configure(text="Warning")
                 self.security_indicator.configure(text_color="orange")
             elif url.startswith('about:'):
-                self.security_indicator.configure(text="ℹ️")
+                self.security_indicator.configure(text="Info")
                 self.security_indicator.configure(text_color="gray")
             else:
-                self.security_indicator.configure(text="🌐")
+                self.security_indicator.configure(text="Web")
                 self.security_indicator.configure(text_color="blue")
                 
         except Exception:
-            self.security_indicator.configure(text="❓")
+            self.security_indicator.configure(text="?")
             self.security_indicator.configure(text_color="gray")
     
     def set_url(self, url: str):
@@ -408,7 +408,7 @@ class AddressBar:
         """Clear the address bar."""
         self.url_entry.delete(0, "end")
         self.current_url = ""
-        self.security_indicator.configure(text="🌐")
+        self.security_indicator.configure(text="Web")
     
     def focus(self):
         """Focus the address bar."""
