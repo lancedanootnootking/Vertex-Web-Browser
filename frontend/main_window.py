@@ -5,12 +5,15 @@ This module contains the main browser window implementation with tabbed browsing
 menu bar, toolbar, and status bar.
 """
 
-import tkinter as tk
-from tkinter import ttk, messagebox
-import customtkinter as ctk
 import logging
 from typing import Dict, Any, List, Optional
 from datetime import datetime
+
+from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
+                             QTabWidget, QToolBar, QMenuBar, QStatusBar, 
+                             QSplitter, QFrame)
+from PyQt6.QtCore import Qt, pyqtSignal, QTimer
+from PyQt6.QtGui import QIcon, QFont, QAction, QKeySequence
 
 from .browser_tab import BrowserTab
 from .address_bar import AddressBar
@@ -20,10 +23,11 @@ from .settings_panel import SettingsPanel
 from .themes.theme_manager import ThemeManager
 
 
-class BrowserMainWindow:
+class BrowserMainWindow(QMainWindow):
     """Main browser window with tabbed interface."""
     
     def __init__(self, config: Dict[str, Any], backend_app, extension_manager):
+        super().__init__()
         self.config = config
         self.backend_app = backend_app
         self.extension_manager = extension_manager
@@ -181,7 +185,7 @@ class BrowserMainWindow:
         self.refresh_button.pack(side="left", padx=2)
         
         self.home_button = ctk.CTkButton(
-            self.toolbar_frame, text="⌂", width=30, command=self.go_home
+            self.toolbar_frame, text="Home", width=30, command=self.go_home
         )
         self.home_button.pack(side="left", padx=2)
         
@@ -191,13 +195,13 @@ class BrowserMainWindow:
         
         # Search button
         self.search_button = ctk.CTkButton(
-            self.toolbar_frame, text="🔍", width=30, command=self.quick_search
+            self.toolbar_frame, text="Search", width=30, command=self.quick_search
         )
         self.search_button.pack(side="left", padx=2)
         
         # Menu button
         self.menu_button = ctk.CTkButton(
-            self.toolbar_frame, text="☰", width=30, command=self.show_context_menu
+            self.toolbar_frame, text="Menu", width=30, command=self.show_context_menu
         )
         self.menu_button.pack(side="left", padx=2)
     
@@ -233,7 +237,7 @@ class BrowserMainWindow:
         self.zoom_label.pack(side="right", padx=5)
         
         # Security indicator
-        self.security_label = ctk.CTkLabel(self.status_bar, text="🔒")
+        self.security_label = ctk.CTkLabel(self.status_bar, text="Secure")
         self.security_label.pack(side="right", padx=5)
     
     def setup_side_panels(self):

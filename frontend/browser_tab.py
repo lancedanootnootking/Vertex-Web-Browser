@@ -5,27 +5,28 @@ This module contains the browser tab implementation with web content rendering,
 navigation controls, and tab management.
 """
 
-import tkinter as tk
-from tkinter import ttk
-import customtkinter as ctk
 import logging
 from typing import Optional, Dict, Any
 from urllib.parse import urlparse
 
-try:
-    from cefpython3 import cefpython as cef
-    CEF_AVAILABLE = True
-except ImportError:
-    CEF_AVAILABLE = False
-    logging.warning("CEF Python not available, using placeholder browser")
+from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton, 
+                             QLabel, QLineEdit, QProgressBar, QFrame)
+from PyQt6.QtCore import Qt, pyqtSignal, QUrl, QTimer
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWebEngineWidgets import QWebEngineView
 
 
-class BrowserTab:
+class BrowserTab(QWidget):
     """Individual browser tab with web content rendering."""
     
-    def __init__(self, notebook, main_window, url=None):
-        self.notebook = notebook
-        self.main_window = main_window
+    # Signals
+    title_changed = pyqtSignal(str)
+    url_changed = pyqtSignal(str)
+    loading_changed = pyqtSignal(bool)
+    load_progress = pyqtSignal(int)
+    
+    def __init__(self, parent=None, url=None):
+        super().__init__(parent)
         self.logger = logging.getLogger(__name__)
         
         # Tab state
@@ -36,8 +37,8 @@ class BrowserTab:
         self.can_go_back_state = False
         self.can_go_forward_state = False
         
-        # Create tab frame
-        self.setup_tab_frame()
+        # Create tab layout
+        self.setup_tab_layout()
         
         # Setup browser component
         self.setup_browser()
@@ -46,8 +47,8 @@ class BrowserTab:
         if url:
             self.load_url(url)
     
-    def setup_tab_frame(self):
-        """Setup the tab frame with close button."""
+    def setup_tab_layout(self):
+        """Setup the tab layout with browser and controls."""
         # Main frame for tab content
         self.frame = ttk.Frame(self.notebook)
         
