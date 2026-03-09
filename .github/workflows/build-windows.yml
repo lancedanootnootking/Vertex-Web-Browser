@@ -26,10 +26,10 @@ jobs:
     
     - name: Build Windows EXE
       run: |
-        pyinstaller --onefile --windowed --name="Vertex Browser" --icon="Vertex Browser.icns" main.py
+        pyinstaller --onefile --windowed --name="VertexBrowser" main.py
     
     - name: Upload EXE
       uses: actions/upload-artifact@v3
       with:
         name: Vertex-Browser-Windows
-        path: dist/Vertex Browser.exe
+        path: dist/VertexBrowser.exe
